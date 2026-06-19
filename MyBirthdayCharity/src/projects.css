@@ -1,0 +1,129 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   projects.css  —  extends the site design system for the Projects page
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Hero — full bleed ───────────────────────────────────────────────────── */
+.proj-hero {
+  position: relative;
+  display: grid;
+  min-height: clamp(320px, 45vh, 500px);
+  align-items: center;
+  padding: 138px clamp(20px, 5vw, 72px) 72px;
+  color: #ffffff;
+  isolation: isolate;
+}
+
+/* background image */
+.proj-hero-image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.proj-hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* dark gradient overlay — same pattern as .hero-overlay in styles.css */
+.proj-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(50, 1, 17, 0.82) 0%, rgba(80, 2, 28, 0.68) 50%, rgba(104, 3, 36, 0.28) 100%),
+    linear-gradient(0deg, rgba(50, 1, 17, 0.55), rgba(50, 1, 17, 0.08));
+}
+
+.proj-hero-content {
+  width: min(680px, 100%);
+}
+
+.proj-hero-content h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+/* ── About section ───────────────────────────────────────────────────────── */
+.proj-about-layout {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.proj-about-copy {
+  padding-top: 6px;
+}
+
+.proj-about-heading {
+  max-width: 560px;
+  margin: 0;
+  color: #333333;
+  font-size: clamp(1.85rem, 2.6vw, 3rem);
+  font-weight: 700;
+  line-height: 1.14;
+}
+
+.proj-about-body {
+  max-width: 620px;
+  margin: 16px 0 0;
+  color: var(--color-muted);
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.8;
+}
+
+/* ── Projects grid section ───────────────────────────────────────────────── */
+.proj-grid-section {
+  padding-top: clamp(52px, 6vw, 88px);
+  padding-bottom: clamp(72px, 8vw, 112px);
+}
+
+.proj-grid-inner {
+  width: min(80vw, 1320px);
+  margin-inline: auto;
+}
+
+/* ── Project card button ─────────────────────────────────────────────────── */
+.proj-card-btn {
+  display: inline-flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 12px 20px;
+  color: #ffffff;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.proj-card-btn:hover,
+.proj-card-btn:focus-visible {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .proj-hero {
+    min-height: clamp(280px, 55vw, 380px);
+    padding: 100px 18px 52px;
+  }
+
+  .proj-about-heading {
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+}
