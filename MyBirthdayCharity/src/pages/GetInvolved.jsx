@@ -23,7 +23,7 @@ function GetInvolved() {
         titleId="involve-title"
         description="There are many ways to support the mission through giving, volunteering, partnership, and community service."
         image={heroImage}
-        imageAlt="Children supported by MyBirthday Charity Foundation"
+        imageAlt="Children supported by My Birthday Charity Foundation"
       />
 
       <section className="involve-section involve-intro" aria-labelledby="involve-intro-title">

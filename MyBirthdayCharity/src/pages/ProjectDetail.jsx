@@ -1,4 +1,4 @@
-﻿import "../project-detail.css";
+import "../project-detail.css";
 import bgImg from "../assets/images/bacground1.jpg";
 import projectHeroImg from "../assets/images/IMG_0900.JPG";
 import InnerPageHero from "../components/InnerPageHero";
@@ -100,6 +100,8 @@ function ProjectDetail() {
           imageAlt={`${projectTitle} outreach`}
           primaryLabel="Donate Now"
           primaryTo="/donate"
+          secondaryLabel="Partner with us"
+          secondaryTo="/get-involved/partner"
         />
 
         {/* Floating stat bar sitting at the section seam */}

@@ -16,80 +16,56 @@ import statBeneficiariesImage from "../assets/images/30F2D69C-9FC3-423F-AC31-E86
 import statStatesImage from "../assets/images/IMG_7659.JPG";
 import statTransparencyImage from "../assets/images/IMG_0900.JPG";
 import missionImage from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.jpeg";
-import journeyImage from "../assets/images/IMG_1824 (1).jpeg";
 import teamImage from "../assets/images/PRIL0258.jpg";
 
 const trustPoints = [
   {
     title: "Dedicated Volunteers & Partners",
-    copy: "Our passionate team and strong network of partners make every initiative meaningful.",
+    copy: "Our passionate team and the partners who stand with us are what make every initiative meaningful.",
   },
   {
     title: "Community-Centered Service",
-    copy: "We listen, show up, and respond to real needs with empathy and care.",
+    copy: "We listen first, then we respond. Every visit starts with understanding what a family actually needs.",
   },
   {
     title: "Transparent Outreach",
-    copy: "Every gift is handled with accountability, purpose, and respect for the people we serve.",
+    copy: "Every gift given to us is handled with care and accountability, because trust is something we protect and respect.",
   },
 ];
 
 const impactStats = [
   {
+    value: "800+",
+    label: "Students Supported",
+    image: statBeneficiariesImage,
+  },
+  {
     value: "10+",
+    label: "Schools Reached",
+    image: statTransparencyImage,
+  },
+  {
+    value: "15+",
     label: "Communities Supported",
     image: statCommunitiesImage,
   },
   {
-    value: "50,000+",
-    label: "Beneficiaries Reached",
-    image: statBeneficiariesImage,
-  },
-  {
-    value: "2+",
+    value: "3+",
     label: "States Reached",
     image: statStatesImage,
-  },
-  {
-    value: "100%",
-    label: "Transparency in Financials",
-    image: statTransparencyImage,
-  },
-];
-
-const journeyRows = [
-  {
-    step: "1. The Intent",
-    focus: "Making people smile is the goal",
-    date: "2022",
-  },
-  {
-    step: "2. First Outreach",
-    focus: "Turning birthdays into practical acts of service",
-    date: "2022",
-  },
-  {
-    step: "3. Community Growth",
-    focus: "Reaching more families through partners and volunteers",
-    date: "2023",
-  },
-  {
-    step: "4. Wider Impact",
-    focus: "Building a foundation for sustainable giving",
-    date: "2024",
   },
 ];
 
 const values = [
   {
     title: "Commitment",
-    copy: "We stay dedicated and devoted to the cause, following through on responsibilities and persevering through challenges.",
+    copy: "We don't quit when things get hard. We stay dedicated and devoted to the cause, following through on responsibilities and persevering through challenges.",
     Icon: BadgeCheck,
     color: "#f7c6e8",
   },
   {
     title: "Love & Compassion",
-    copy: "We show empathy, care, and kindness towards the less privileged, putting our hearts into every act of service.",
+    copy: "Every visit, every gift, every conversation comes from genuine empathy, care, and kindness towards the less privileged, putting our hearts into every act of service.",
     Icon: HeartHandshake,
     color: "#56a684",
   },
@@ -101,19 +77,19 @@ const values = [
   },
   {
     title: "Teamwork",
-    copy: "We communicate and work together to achieve common goals and create stronger impact through unity.",
+    copy: "Nothing we've built came from one person. We move together, and we're stronger for it.",
     Icon: Users,
     color: "#dfc8d8",
   },
   {
     title: "Celebration",
-    copy: "We celebrate birthdays, achievements, and every positive impact made by the initiative, turning every moment into a reason to spread joy.",
+    copy: "Birthdays, milestones, positive impacts, we believe every good thing deserves to be celebrated, together.",
     Icon: Sparkles,
     color: "#a899f0",
   },
   {
     title: "Selflessness",
-    copy: "We prioritize the well-being and empowerment of the less privileged, demonstrating a willingness to serve and make sacrifices for the greater good.",
+    copy: "We prioritize the well-being and empowerment of the less privileged, and we're willing to give of ourselves to make that happen.",
     Icon: HandHeart,
     color: "#66e0bf",
   },
@@ -148,13 +124,18 @@ function About() {
     <>
       <InnerPageHero
         eyebrow="About Us"
-        title={<>One Smile at <span>A time</span></>}
+        title={<>One Smile at <span>A Time</span></>}
         titleId="about-hero-title"
-        description="Every act of birthday kindness helps us bring dignity, care, and joy to children and families."
+        description="Every act of kindness, big or small, helps us bring dignity, care, and joy to children and families across Nigeria."
         image={heroImage}
         imageAlt="Children looking into the camera"
+        primaryLabel="Donate Now"
+        primaryTo="/donate"
+        secondaryLabel="Be a Volunteer"
+        secondaryTo="/get-involved/volunteer"
       />
 
+      {/* 1. Our Story */}
       <section className="about-section about-story" aria-labelledby="about-story-title">
         <div className="about-story-media">
           <img
@@ -167,12 +148,12 @@ function About() {
           <p className="about-kicker">Our Story</p>
           <h2 id="about-story-title">Serving Humanity with Passion & Purpose</h2>
           <p>
-            &ldquo;Together, we are making a real difference in the lives of
-            countless individuals and communities. Our mission is create lasting
-            change, and with your support, we continue to grow and impact more
-            lives. I am proud of the work we do, but I know that our greatest
-            achievements are still ahead of us. Thank you for being part of this
-            journey to serve humanity with purpose and passion.&rdquo;
+            &ldquo;What started as one birthday, one decision to give back, has
+            grown into something bigger than I imagined. We&apos;ve walked into
+            communities, sat with families, and watched small acts turn into
+            real change. There&apos;s still so much more we want to do, and
+            I&apos;m grateful for everyone who has chosen to walk this journey
+            with us.&rdquo;
           </p>
 
           <div className="about-founder">
@@ -186,11 +167,12 @@ function About() {
         </div>
       </section>
 
+      {/* 2. Who We Are (About & Stats) */}
       <section className="about-section about-trust" aria-labelledby="about-trust-title">
         <div className="about-section-heading">
           <p className="about-kicker">Who We Are</p>
           <h2 id="about-trust-title">
-            Why Trust My Birthday Charity Foundation?
+            Why People Trust My Birthday Charity Foundation
           </h2>
         </div>
 
@@ -236,6 +218,7 @@ function About() {
         </div>
       </section>
 
+      {/* 3. Mission & Vision Statement */}
       <section
         className="about-section about-mission"
         aria-labelledby="about-mission-title"
@@ -251,9 +234,9 @@ function About() {
           <article className="about-mission-card">
             <h3>Our Mission</h3>
             <p>
-              To inspire individuals to celebrate birthdays by giving back to
-              the community, fostering compassion and generosity through
-              impactful outreach.
+              To turn everyday generosity, birthdays and beyond, into real
+              support for children and communities, through acts of kindness
+              anyone can be part of, no matter what they have to give.
             </p>
           </article>
 
@@ -275,41 +258,11 @@ function About() {
         </div>
       </section>
 
-      <section className="about-section about-journey" aria-labelledby="about-journey-title">
-        <div className="about-section-heading">
-          <p className="about-kicker">Our Journey</p>
-          <h2 id="about-journey-title">Making a Difference Since 2022</h2>
-        </div>
-
-        <div className="about-journey-layout">
-          <div className="about-journey-media">
-            <img
-              src={journeyImage}
-              alt="Volunteers and community members during an outreach"
-            />
-          </div>
-
-          <div className="about-journey-table" role="table" aria-label="Foundation journey timeline">
-            <div className="about-journey-row about-journey-head" role="row">
-              <span role="columnheader">Step</span>
-              <span role="columnheader">Narrative Focus</span>
-              <span role="columnheader">Date</span>
-            </div>
-            {journeyRows.map((row) => (
-              <div className="about-journey-row" role="row" key={row.step}>
-                <span role="cell">{row.step}</span>
-                <span role="cell">{row.focus}</span>
-                <span role="cell">{row.date}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      {/* 4. Our Core Values */}
       <section className="about-section about-values" aria-labelledby="about-values-title">
         <div className="about-values-heading">
-          <p className="about-values-pill">Our Values</p>
-          <h2 id="about-values-title">The beliefs behind our work</h2>
+          <p className="about-values-pill">Our Core Values</p>
+          <h2 id="about-values-title">The Beliefs Behind Our Work</h2>
         </div>
 
         <div className="about-values-grid">
@@ -325,12 +278,17 @@ function About() {
         </div>
       </section>
 
+      {/* 5. Meet the Team */}
       <section className="about-section about-team" aria-labelledby="about-team-title">
         <div className="about-section-heading">
           <p className="about-kicker">Our Team</p>
           <h2 id="about-team-title">
             Meet the People Behind My Birthday Charity Foundation
           </h2>
+          <p className="about-team-intro">
+            A team of writers, designers, researchers, and organizers, working on
+            the ground and behind the scenes to keep this mission moving.
+          </p>
         </div>
 
         <div className="about-team-group">

@@ -1,6 +1,7 @@
 import "../projects.css";
 import bgImg from "../assets/images/bacground1.jpg";
 import { Link } from "react-router-dom";
+import { Handshake } from "lucide-react";
 import { PROJECTS } from "../data/projects";
 import InnerPageHero from "../components/InnerPageHero";
 
@@ -37,6 +38,11 @@ function Projects() {
         description="Explore outreach projects that turn birthday celebrations into practical care, gifts, meals, and lasting community joy."
         image={bgImg}
         imageAlt="Children supported through birthday outreach"
+        primaryLabel="Donate Now"
+        primaryTo="/donate"
+        secondaryLabel="Partner with us"
+        secondaryTo="/get-involved/partner"
+        SecondaryIcon={Handshake}
       />
 
       {/* ── About This Project ─────────────────────────────────────────── */}

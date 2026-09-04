@@ -35,14 +35,13 @@ function Contact() {
         titleId="contact-title"
         description="Send us a message about volunteering, partnership, donations, media, or community outreach."
         image={heroImage}
-        imageAlt="Children supported by MyBirthday Charity Foundation"
-        primaryLabel="Send Message"
-        primaryTo="/contact"
+        imageAlt="Children supported by My Birthday Charity Foundation"
+        showActions={false}
       />
 
       <section className="contact-form-section" aria-labelledby="contact-form-title">
         <div className="contact-image">
-          <img src={contactImage} alt="MyBirthday Charity Foundation team members" />
+          <img src={contactImage} alt="My Birthday Charity Foundation team members" />
         </div>
 
         <form className="contact-form" onSubmit={(event) => event.preventDefault()}>

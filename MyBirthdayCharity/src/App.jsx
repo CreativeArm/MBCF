@@ -7,7 +7,9 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { ChevronDown, Gift, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import logoImg from "./assets/images/Logo.png";
+import whiteLogoImg from "./assets/images/Logo - white.png";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Projects from "./pages/Projects.jsx";
@@ -74,14 +76,12 @@ function Header() {
 
   return (
     <header className={isScrolled ? "site-header scrolled" : "site-header"}>
-      <Link className="brand" to="/" aria-label="MyBirthdayCharity home">
-        <span className="brand-mark">
-          <Gift size={22} aria-hidden="true" />
-        </span>
-        <span className="brand-copy">
-          <span>MyBirthday</span>
-          <span>Charity Foundation</span>
-        </span>
+      <Link className="brand" to="/" aria-label="My Birthday Charity Foundation home">
+        <img
+          className="brand-logo"
+          src={isScrolled ? logoImg : whiteLogoImg}
+          alt="My Birthday Charity Foundation"
+        />
       </Link>
 
       <button
@@ -134,7 +134,11 @@ function Header() {
               {navLink}
               <div className="nav-submenu" aria-label={`${item.label} submenu`}>
                 {item.children.map((child) => (
-                  <NavLink className="nav-submenu-link" key={child.label} to={child.to}>
+                  <NavLink
+                    className="nav-submenu-link"
+                    key={child.label}
+                    to={child.to}
+                  >
                     {child.label}
                   </NavLink>
                 ))}
@@ -152,18 +156,18 @@ function Footer() {
     <footer className="site-footer">
       <div className="site-footer-main">
         <div className="site-footer-brand">
-          <Link className="brand footer-brand" to="/">
-            <span className="brand-mark">
-              <Gift size={20} aria-hidden="true" />
-            </span>
-            <span className="brand-copy">
-              <span>MyBirthday</span>
-              <span>Charity Foundation</span>
-            </span>
+          <Link className="brand footer-brand" to="/" aria-label="My Birthday Charity Foundation home">
+            <img
+              className="brand-logo footer-logo"
+              src={whiteLogoImg}
+              alt="My Birthday Charity Foundation"
+            />
           </Link>
           <p>
-            My Birthday Charity Foundation brings joy to children by
-            celebrating our birthdays with love, gifts, and smiles.
+            My Birthday Charity Foundation is a Nigerian nonprofit supporting
+            vulnerable children and communities through food, education,
+            healthcare, and outreach, powered by everyday people who choose to
+            give.
           </p>
         </div>
         <nav className="footer-links" aria-label="Footer navigation">

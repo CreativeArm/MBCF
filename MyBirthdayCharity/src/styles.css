@@ -93,53 +93,25 @@ textarea {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 800;
-  line-height: 1;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
-  transition: color 220ms ease, text-shadow 220ms ease;
+  transition: transform 220ms ease, opacity 220ms ease;
 }
 
-.site-header.scrolled .brand {
-  color: var(--color-primary);
-  text-shadow: none;
+.brand:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
 }
 
-.brand-mark {
-  display: inline-grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  color: #ffffff;
-  background: var(--color-primary);
-  border-radius: 8px;
+.brand-logo {
+  display: block;
+  height: clamp(60px, 4.8vw, 120px);
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  transition: box-shadow 220ms ease, transform 220ms ease, height 220ms ease;
 }
 
-.site-header .brand-mark {
-  width: 34px;
-  height: 34px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
-}
-
-.site-header.scrolled .brand-mark {
-  color: var(--color-primary);
-  background: transparent;
-  border-color: transparent;
-}
-
-.brand-copy {
-  display: grid;
-  gap: 2px;
-  font-size: 0.86rem;
-  line-height: 0.95;
-}
-
-.brand-copy span:last-child {
-  font-size: 0.64rem;
-  font-weight: 700;
-  opacity: 0.82;
+.site-header.scrolled .brand-logo {
+  height: clamp(38px, 4.2vw, 48px);
 }
 
 .nav-links {
@@ -248,7 +220,7 @@ textarea {
 .nav-submenu-link:focus-visible,
 .nav-submenu-link.active {
   color: var(--color-primary);
-  
+
 }
 
 .nav-link:hover,
@@ -307,29 +279,65 @@ textarea {
   isolation: isolate;
 }
 
+.hero-slider,
 .hero-image-wrap,
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: -2;
+  overflow: hidden;
 }
 
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+  pointer-events: none;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.hero-slide img,
 .hero-image-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transform: scale(1);
+  will-change: transform;
+}
+
+.hero-slide.active img {
+  animation: heroZoomEffect 6.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes heroZoomEffect {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.12);
+  }
 }
 
 .hero-overlay {
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(34, 7, 16, 0.9) 0%, rgba(52, 9, 21, 0.72) 42%, rgba(52, 9, 21, 0.1) 100%),
-    linear-gradient(180deg, rgba(18, 5, 11, 0.32), rgba(18, 5, 11, 0.52));
+    linear-gradient(90deg, rgba(34, 7, 16, 0.92) 0%, rgba(52, 9, 21, 0.78) 46%, rgba(52, 9, 21, 0.25) 100%),
+    linear-gradient(180deg, rgba(18, 5, 11, 0.35), rgba(18, 5, 11, 0.55));
 }
 
 .hero-content {
-  width: min(620px, 100%);
+  position: relative;
+  z-index: 2;
+  width: min(660px, 100%);
   margin-top: 22px;
 }
 
@@ -345,17 +353,18 @@ textarea {
 
 .hero h1 {
   margin: 0;
-  max-width: 13ch;
+  max-width: 22ch;
   color: #ffffff;
-  font-size: clamp(2.8rem, 5.6vw, 5.55rem);
-  font-weight: 900;
-  line-height: 0.98;
+  font-size: clamp(2.1rem, 3.4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 .hero-copy {
   max-width: 520px;
   margin: 20px 0 0;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.88);
   font-size: clamp(0.98rem, 1.2vw, 1.12rem);
   line-height: 1.65;
 }
@@ -365,6 +374,39 @@ textarea {
   flex-wrap: wrap;
   gap: 14px;
   margin-top: 34px;
+}
+
+.hero-slider-dots {
+  position: absolute;
+  bottom: 36px;
+  left: clamp(20px, 7vw, 104px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-slider-dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: #ffffff;
+}
+
+.hero-slider-dot.active {
+  width: 28px;
+  background: var(--color-accent, #fc688b);
+  border-color: var(--color-accent, #fc688b);
+  box-shadow: 0 0 10px rgba(252, 104, 139, 0.5);
 }
 
 .button {
@@ -1126,8 +1168,7 @@ textarea {
 }
 
 .home-card-body {
-  padding: clamp(20px, 1.8vw, 26px) clamp(20px, 1.8vw, 26px)
-    clamp(22px, 2vw, 30px);
+  padding: clamp(20px, 1.8vw, 26px) clamp(20px, 1.8vw, 26px) clamp(22px, 2vw, 30px);
 }
 
 .home-card-body h3 {
@@ -1323,15 +1364,13 @@ textarea {
 
 .inner-page-hero::before {
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       rgba(29, 7, 16, 0.99) 0%,
       rgba(29, 7, 16, 0.98) 30%,
       rgba(45, 5, 20, 0.9) 43%,
       rgba(75, 5, 30, 0.68) 57%,
       rgba(75, 5, 30, 0.32) 72%,
-      rgba(75, 5, 30, 0.16) 100%
-    ),
+      rgba(75, 5, 30, 0.16) 100%),
     radial-gradient(circle at 64% 52%, rgba(104, 3, 36, 0.32), transparent 36%);
 }
 
@@ -1348,7 +1387,7 @@ textarea {
   padding: 72px clamp(34px, 6vw, 94px);
 }
 
-.inner-page-hero-copy > p:first-child {
+.inner-page-hero-copy>p:first-child {
   margin: 0;
   color: var(--color-accent);
   font-size: 0.82rem;
@@ -1372,7 +1411,7 @@ textarea {
   text-underline-offset: 0.12em;
 }
 
-.inner-page-hero-copy > p:not(:first-child) {
+.inner-page-hero-copy>p:not(:first-child) {
   max-width: 430px;
   margin: 24px 0 0;
   color: rgba(255, 255, 255, 0.78);
@@ -1525,7 +1564,7 @@ textarea {
   transition: background 180ms ease;
 }
 
-.join-story-actions a + a {
+.join-story-actions a+a {
   border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -1592,14 +1631,14 @@ textarea {
 
 .about-hero-image,
 .about-hero-overlay,
-.about-volunteer > img,
+.about-volunteer>img,
 .about-volunteer-overlay {
   position: absolute;
   inset: 0;
 }
 
 .about-hero-image,
-.about-volunteer > img {
+.about-volunteer>img {
   z-index: -2;
   width: 100%;
   height: 100%;
@@ -1766,7 +1805,7 @@ textarea {
   border-radius: 8px;
 }
 
-.about-trust-item > span,
+.about-trust-item>span,
 .about-stat-orb {
   display: block;
   overflow: hidden;
@@ -1774,7 +1813,7 @@ textarea {
   border-radius: 50%;
 }
 
-.about-trust-item > span {
+.about-trust-item>span {
   width: 82px;
   height: 82px;
 }
@@ -1942,7 +1981,7 @@ textarea {
   border-radius: 0;
 }
 
-.about-value-card > span {
+.about-value-card>span {
   display: inline-grid;
   width: 56px;
   height: 56px;
@@ -1975,7 +2014,14 @@ textarea {
   max-width: 720px;
 }
 
-.about-team-group + .about-team-group {
+.about-team-intro {
+  margin: 14px 0 0;
+  color: #4f4f4f;
+  font-size: clamp(1rem, 1.12vw, 1.18rem);
+  line-height: 1.6;
+}
+
+.about-team-group+.about-team-group {
   margin-top: 36px;
 }
 
@@ -2055,7 +2101,7 @@ textarea {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
-.about-volunteer-card > p {
+.about-volunteer-card>p {
   display: inline-flex;
   min-height: 38px;
   align-items: center;
@@ -2074,7 +2120,7 @@ textarea {
   line-height: 1.18;
 }
 
-.about-volunteer-card > span {
+.about-volunteer-card>span {
   display: block;
   margin-top: 28px;
   color: #4d4d4d;
@@ -2097,7 +2143,7 @@ textarea {
   transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
-.about-volunteer-card a > span {
+.about-volunteer-card a>span {
   display: inline-grid;
   width: 44px;
   height: 44px;
@@ -2136,19 +2182,14 @@ textarea {
   line-height: 1.7;
 }
 
-.footer-brand {
-  color: rgba(0, 0, 0, 0.28);
-  text-shadow: none;
-}
-
-.footer-brand .brand-mark {
-  color: rgba(0, 0, 0, 0.28);
+.footer-brand .brand-logo,
+.footer-logo {
+  height: clamp(52px, 5vw, 68px);
   background: transparent;
-  border: 0;
-}
-
-.footer-brand .brand-copy span:last-child {
-  opacity: 1;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .footer-links {
@@ -2189,6 +2230,7 @@ textarea {
 }
 
 @media (max-width: 980px) {
+
   .impact-band,
   .program-grid,
   .giving-grid {
@@ -2209,6 +2251,7 @@ textarea {
 }
 
 @media (max-width: 900px) {
+
   .site-header,
   .site-header.scrolled {
     align-items: center;
@@ -2226,25 +2269,9 @@ textarea {
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.28);
   }
 
-  .site-header .brand-mark,
-  .site-header.scrolled .brand-mark {
-    width: 38px;
-    height: 38px;
-    color: #ffffff;
-    background: var(--color-accent);
-    border: 0;
-  }
-
-  .brand {
-    font-size: 0.96rem;
-  }
-
-  .brand-copy {
-    font-size: 0.82rem;
-  }
-
-  .brand-copy span:last-child {
-    font-size: 0.6rem;
+  .brand-logo {
+    height: clamp(38px, 5vw, 46px);
+    padding: 4px 10px;
   }
 
   .menu-toggle {
@@ -2262,6 +2289,9 @@ textarea {
     align-items: stretch;
     gap: 6px;
     min-height: auto;
+    max-height: calc(100dvh - 86px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 10px;
     color: var(--color-ink);
     background: #ffffff;
@@ -2270,13 +2300,14 @@ textarea {
     box-shadow: 0 20px 48px rgba(104, 3, 36, 0.16);
     font-size: 0.95rem;
     font-weight: 700;
+    z-index: 1000;
   }
 
   .nav-links.open {
     display: flex;
   }
 
-  .nav-links > span,
+  .nav-links>span,
   .nav-item {
     display: grid;
     width: 100%;
@@ -2342,62 +2373,6 @@ textarea {
 }
 
 @media (max-width: 720px) {
-  .site-header {
-    min-height: 68px;
-    padding: 12px 16px;
-  }
-
-  .menu-toggle {
-    display: grid;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 16px;
-    right: 16px;
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-    padding: 10px;
-    color: var(--color-ink);
-    background: #ffffff;
-    border: 1px solid var(--color-primary-border);
-    border-radius: 8px;
-    box-shadow: 0 20px 48px rgba(104, 3, 36, 0.16);
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links a {
-    padding: 12px;
-    border-radius: 8px;
-  }
-
-  .nav-links a:hover,
-  .nav-links a:focus-visible {
-    color: var(--color-primary);
-    background: var(--color-primary-soft);
-  }
-
-  .nav-link.donate-link:hover,
-  .nav-link.donate-link:focus-visible {
-    color: #ffffff;
-    background: var(--color-accent-dark);
-  }
-
-  .brand {
-    font-size: 0.96rem;
-  }
-
-  .brand-mark {
-    width: 38px;
-    height: 38px;
-  }
-
   .hero {
     min-height: 560px;
     align-items: end;
@@ -2411,8 +2386,9 @@ textarea {
   }
 
   .hero h1 {
-    max-width: 12ch;
-    font-size: clamp(2.35rem, 11vw, 3.55rem);
+    max-width: 18ch;
+    font-size: clamp(1.95rem, 8.5vw, 2.75rem);
+    line-height: 1.15;
   }
 
   .hero-copy {
@@ -2423,6 +2399,11 @@ textarea {
   .hero-actions {
     gap: 10px;
     margin-top: 26px;
+  }
+
+  .hero-slider-dots {
+    bottom: 24px;
+    left: 18px;
   }
 
   .button {
@@ -2520,6 +2501,7 @@ textarea {
 }
 
 @media (max-width: 1180px) {
+
   .about-story,
   .about-trust-layout,
   .about-journey-layout {
@@ -2565,6 +2547,7 @@ textarea {
 }
 
 @media (max-width: 980px) {
+
   .about-section,
   .about-stats-inner,
   .about-hero-content {
@@ -2654,13 +2637,11 @@ textarea {
 
   .inner-page-hero::before {
     background:
-      linear-gradient(
-        180deg,
+      linear-gradient(180deg,
         rgba(29, 7, 16, 0.12) 0%,
         rgba(42, 5, 19, 0.2) 30%,
         rgba(42, 5, 19, 0.84) 72%,
-        rgba(29, 7, 16, 0.98) 100%
-      ),
+        rgba(29, 7, 16, 0.98) 100%),
       linear-gradient(90deg, rgba(29, 7, 16, 0.34), rgba(29, 7, 16, 0.04));
   }
 
@@ -2690,7 +2671,7 @@ textarea {
     font-size: 2.7rem;
   }
 
-  .inner-page-hero-copy > p:not(:first-child) {
+  .inner-page-hero-copy>p:not(:first-child) {
     font-size: 0.95rem;
   }
 
@@ -2889,13 +2870,14 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .join-story-actions a + a {
+  .join-story-actions a+a {
     border-top: 1px solid rgba(255, 255, 255, 0.18);
     border-left: 0;
   }
 }
 
 @media (max-width: 720px) {
+
   .program-card,
   .giving-card,
   .home-image-card,
@@ -2953,13 +2935,13 @@ textarea {
     padding: 20px 12px 22px;
   }
 
-  .about-value-card > span {
+  .about-value-card>span {
     width: 44px;
     height: 44px;
     border-radius: 7px;
   }
 
-  .about-value-card > span svg {
+  .about-value-card>span svg {
     width: 22px;
     height: 22px;
   }
@@ -2998,6 +2980,7 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

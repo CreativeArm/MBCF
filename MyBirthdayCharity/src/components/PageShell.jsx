@@ -10,7 +10,7 @@ function PageShell({ kicker, title, intro, highlights = [], children }) {
         titleId="page-title"
         description={intro}
         image={heroImage}
-        imageAlt="Children supported by MyBirthday Charity Foundation"
+        imageAlt="Children supported by My Birthday Charity Foundation"
       />
 
       <section className="section page-body">

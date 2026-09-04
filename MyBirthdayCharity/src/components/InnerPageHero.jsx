@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { HeartHandshake } from "lucide-react";
+import { Handshake, HeartHandshake } from "lucide-react";
 
 function InnerPageHero({
   eyebrow = "Help make a difference",
@@ -8,10 +8,12 @@ function InnerPageHero({
   image,
   imageAlt = "",
   titleId,
+  showActions = true,
   primaryLabel = "Donate Now",
   primaryTo = "/donate",
   secondaryLabel = "Be a Volunteer",
   secondaryTo = "/get-involved/volunteer",
+  SecondaryIcon = HeartHandshake,
 }) {
   return (
     <section className="inner-page-hero" aria-labelledby={titleId}>
@@ -19,15 +21,21 @@ function InnerPageHero({
         <p>{eyebrow}</p>
         <h1 id={titleId}>{title}</h1>
         {description ? <p>{description}</p> : null}
-        <div className="inner-page-hero-actions">
-          <Link className="inner-page-hero-primary" to={primaryTo}>
-            {primaryLabel}
-          </Link>
-          <Link className="inner-page-hero-secondary" to={secondaryTo}>
-            <HeartHandshake size={17} aria-hidden="true" />
-            {secondaryLabel}
-          </Link>
-        </div>
+        {showActions ? (
+          <div className="inner-page-hero-actions">
+            {primaryLabel && primaryTo ? (
+              <Link className="inner-page-hero-primary" to={primaryTo}>
+                {primaryLabel}
+              </Link>
+            ) : null}
+            {secondaryLabel && secondaryTo ? (
+              <Link className="inner-page-hero-secondary" to={secondaryTo}>
+                {SecondaryIcon ? <SecondaryIcon size={17} aria-hidden="true" /> : null}
+                {secondaryLabel}
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       <div className="inner-page-hero-media">

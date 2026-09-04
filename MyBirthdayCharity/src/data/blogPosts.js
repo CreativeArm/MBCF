@@ -46,7 +46,7 @@ export const blogPosts = [
     readTime: "5 min read",
     author: "Volunteer Desk",
     image: volunteerImage,
-    imageAlt: "MyBirthday Charity Foundation volunteers standing together",
+    imageAlt: "My Birthday Charity Foundation volunteers standing together",
     excerpt:
       "Behind every outreach is a group of people planning, packing, calling, carrying, encouraging, and showing up.",
     highlight: "18 active teams",

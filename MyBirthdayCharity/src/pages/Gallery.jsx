@@ -38,7 +38,7 @@ const galleryItems = [
     category: "Volunteers",
     location: "Volunteer team",
     image: volunteerImage,
-    alt: "MyBirthday Charity Foundation volunteers standing together",
+    alt: "My Birthday Charity Foundation volunteers standing together",
     variant: "wide",
   },
   {
@@ -157,7 +157,7 @@ function Gallery() {
         titleId="gallery-title"
         description="Browse moments of birthday joy, outreach care, volunteer service, and community celebration."
         image={heroImage}
-        imageAlt="Children supported by MyBirthday Charity Foundation"
+        imageAlt="Children supported by My Birthday Charity Foundation"
       />
 
       <section className="gallery-intro" aria-labelledby="gallery-intro-title">
