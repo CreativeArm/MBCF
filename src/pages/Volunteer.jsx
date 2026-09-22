@@ -10,7 +10,6 @@ import {
   HeartHandshake,
   Megaphone,
   Quote,
-  Send,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -21,13 +20,13 @@ import {
 import InnerPageHero from "../components/InnerPageHero";
 import "../projects.css";
 import "../get-involved.css";
-import heroImage from "../assets/images/bacground1.jpg";
-import volunteerGroupImage from "../assets/images/IMG_1916 (1).jpeg";
-import volunteerMomentImage from "../assets/images/IMG_0853.JPG";
-import spotlightMainImage from "../assets/images/PRIL0258.jpg";
-import pastSpotlight1 from "../assets/images/IMG_1916 (1).jpeg";
-import pastSpotlight2 from "../assets/images/IMG_0853.JPG";
-import pastSpotlight3 from "../assets/images/1C519AF3-D4EE-4920-BFD9-1A5CCCA06F23.jpeg";
+import heroImage from "../assets/images/bacground1.webp";
+import volunteerGroupImage from "../assets/images/IMG_1916 (1).webp";
+import volunteerMomentImage from "../assets/images/IMG_0853.webp";
+import spotlightMainImage from "../assets/images/PRIL0258.webp";
+import pastSpotlight1 from "../assets/images/IMG_1916 (1).webp";
+import pastSpotlight2 from "../assets/images/IMG_0853.webp";
+import pastSpotlight3 from "../assets/images/1C519AF3-D4EE-4920-BFD9-1A5CCCA06F23.webp";
 
 const volunteerTeams = [
   {
@@ -447,7 +446,7 @@ function Volunteer() {
               </label>
 
               <button className="volunteer-submit-btn" type="submit">
-                <Send size={18} /> Submit Volunteer Application
+                Submit Volunteer Application
               </button>
             </form>
           ) : (

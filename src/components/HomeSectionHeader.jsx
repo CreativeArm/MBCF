@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 function HomeSectionHeader({
@@ -27,7 +27,7 @@ function HomeSectionHeader({
       </div>
 
       {actionLabel && actionTo ? (
-        <Link className="home-section-action" to={actionTo}>
+        <Link className="home-section-action" href={actionTo}>
           {actionLabel}
           <ArrowRight size={24} aria-hidden="true" />
         </Link>

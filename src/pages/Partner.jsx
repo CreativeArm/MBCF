@@ -8,7 +8,6 @@ import {
   Handshake,
   HeartHandshake,
   Megaphone,
-  Send,
   ShieldCheck,
   Sparkles,
   Users,
@@ -16,8 +15,8 @@ import {
 import InnerPageHero from "../components/InnerPageHero";
 import "../projects.css";
 import "../get-involved.css";
-import heroImage from "../assets/images/bacground1.jpg";
-import partnerImage from "../assets/images/IMG_1916 (1).jpeg";
+import heroImage from "../assets/images/bacground1.webp";
+import partnerImage from "../assets/images/IMG_1916 (1).webp";
 
 const partnerFocus = [
   {
@@ -272,7 +271,7 @@ function Partner() {
               </label>
 
               <button className="volunteer-submit-btn" type="submit">
-                <Send size={18} /> Submit Partnership Request
+                Submit Partnership Request
               </button>
             </form>
           )}

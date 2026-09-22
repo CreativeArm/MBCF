@@ -1,6 +1,7 @@
 /* ── Global Detail Page Overrides/Wraps ── */
 .pd-page {
   width: 100%;
+  background: var(--color-surface);
   overflow-x: hidden;
 }
 
@@ -26,79 +27,6 @@
   margin-bottom: 0;
 }
 
-/* Base structural sub-container for absolute coordinates */
-.pd-hero-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: inherit;
-  flex-grow: 1;
-  overflow: hidden;
-  z-index: 0;
-}
-
-/* Background image handling mechanics */
-.pd-hero-image-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.pd-hero-image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Specific Deep Shadow Red Overlay Engine matching the image asset tint exactly */
-.pd-hero-overlay--deep {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(50, 1, 17, 0.78) 0%, rgba(80, 2, 28, 0.58) 48%, rgba(50, 1, 17, 0.2) 100%),
-    linear-gradient(0deg, rgba(18, 8, 12, 0.52), rgba(18, 8, 12, 0.1));
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Title Content Positioning System - Left aligned */
-.pd-hero-content {
-  position: absolute;
-  left: max(20px, 10vw);
-  right: max(20px, 10vw);
-  bottom: clamp(96px, 14vh, 130px);
-  max-width: 680px;
-  text-align: left;
-  z-index: 2;
-}
-
-/* Dynamic Project Title Styling */
-.pd-hero-project-title {
-  font-size: clamp(2.35rem, 4.1vw, 4rem);
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.05;
-  margin: 0 0 0.85rem;
-  color: #ffffff;
-  word-break: break-word;
-}
-
-.pd-hero-title-small {
-  display: inline-flex;
-  min-height: 34px;
-  align-items: center;
-  padding: 0 14px;
-  color: #ffffff;
-  background: rgba(104, 3, 36, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  font-size: clamp(0.88rem, 1vw, 1rem);
-  margin: 0;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
 /* Floating Stats Bar sitting at the lower section edge */
 .pd-stat-bar {
   position: absolute;
@@ -109,10 +37,11 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
   background: #ffffff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 18px 38px rgba(104, 3, 36, 0.12);
-  width: min(80vw, 960px);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 14px 36px rgba(104, 3, 36, 0.12);
+  border: 1px solid rgba(104, 3, 36, 0.08);
+  width: min(84vw, 1080px);
   z-index: 4;
 }
 
@@ -124,62 +53,255 @@
 }
 
 .pd-stat strong {
-  font-size: clamp(1.2rem, 1.7vw, 1.75rem);
-  color: var(--color-primary);
-  font-weight: 700;
+  font-size: clamp(1.3rem, 1.8vw, 1.9rem);
+  color: var(--color-primary, #680324);
+  font-weight: 800;
   line-height: 1;
 }
 
 .pd-stat span {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   color: #666666;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
+  font-weight: 700;
 }
 
-/* ── 2. Writeup Section ── */
-.pd-writeup {
-  padding-top: clamp(6rem, 8vw, 8rem);
-  padding-bottom: 4rem;
+/* ── Navigation Bar (Back link & Tags) ──────────────────────────────────── */
+.pd-nav-bar {
+  padding-top: clamp(4.5rem, 6vw, 6rem);
+  padding-bottom: 1rem;
 }
 
-.pd-writeup-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-}
-
-.pd-writeup-tags {
+.pd-nav-inner {
+  width: min(84vw, 1140px);
+  margin-inline: auto;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 2rem;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.pd-writeup-tags span {
-  background: #f5f5f7;
+.pd-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary, #680324);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.pd-back-link:hover {
+  transform: translateX(-4px);
+  color: var(--color-primary-dark, #4e021b);
+}
+
+.pd-nav-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pd-tag-pill {
+  padding: 4px 12px;
+  color: #555555;
+  background: #f0edf0;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* ── 2. Writeup Section (2-Column Narrative + Sidebar) ─────────────────── */
+.pd-writeup {
+  padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 80px);
+}
+
+.pd-layout-2col {
+  width: min(84vw, 1140px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
+  gap: clamp(36px, 5vw, 64px);
+  align-items: start;
+}
+
+.pd-main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.pd-writeup-lead {
+  margin-bottom: 20px;
+}
+
+.pd-writeup-heading {
+  margin: 0;
+  color: #151515;
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.pd-lead-para {
   color: #444444;
-  padding: 0.5rem 1rem;
-  border-radius: 100px;
-  font-size: 0.875rem;
+  font-size: clamp(1rem, 1.1vw, 1.12rem);
+  line-height: 1.75;
+  margin: 0 0 24px;
 }
 
-/* ── 3. Image Gallery — Perfect 3-Column Interlocking Screenshot Grid ── */
+.pd-mission-callout {
+  padding: 24px 28px;
+  background: #fcf8fa;
+  border-left: 4px solid var(--color-primary, #680324);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 32px;
+}
+
+.pd-mission-callout strong {
+  display: block;
+  color: var(--color-primary, #680324);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.pd-mission-callout p {
+  margin: 0;
+  color: #333333;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.pd-subheading {
+  margin: 0 0 16px;
+  color: #151515;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.pd-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pd-highlights-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #444444;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.pd-check-icon {
+  flex-shrink: 0;
+  color: #0b7347;
+  margin-top: 3px;
+}
+
+/* Sidebar Info Card */
+.pd-sidebar {
+  position: sticky;
+  top: 96px;
+}
+
+.pd-sidebar-card {
+  background: #ffffff;
+  padding: clamp(24px, 3vw, 32px);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.pd-sidebar-title {
+  margin: 0 0 20px;
+  color: #151515;
+  font-size: 1.25rem;
+  font-weight: 800;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pd-sidebar-details {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.pd-sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.pd-sidebar-icon {
+  color: var(--color-primary, #680324);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pd-sidebar-item strong {
+  display: block;
+  color: #151515;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pd-sidebar-item span {
+  display: block;
+  color: #555555;
+  font-size: 0.92rem;
+  margin-top: 2px;
+}
+
+.pd-sidebar-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-btn-full {
+  width: 100%;
+  justify-content: center;
+  min-height: 44px;
+}
+
+/* ── 3. Image Gallery — 3-Column Mosaic Grid ────────────────────────────── */
 .pd-gallery-section {
-  max-width: 1200px;
+  width: min(84vw, 1140px);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: clamp(48px, 6vw, 80px) 0;
 }
 
 .pd-gallery-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(32px, 4vw, 48px);
 }
 
-/* Accurate 3-Column Track Setup matching the layout wireframe */
+.pd-gallery-subtitle {
+  margin: 8px auto 0;
+  max-width: 580px;
+  color: #666666;
+  font-size: 0.95rem;
+}
+
 .pd-gallery-mosaic {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -187,17 +309,16 @@
   gap: 1.5rem;
 }
 
-/* Base Tile Behaviors */
 .pd-gallery-tile {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 20px; /* High fidelity curved edges from screenshot layout */
-  background-color: #f3f4f6;
+  border-radius: 14px;
+  background-color: #f0edf0;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .pd-gallery-tile img {
@@ -209,10 +330,9 @@
 }
 
 .pd-gallery-tile:hover img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
-/* Mosaic spans mapped to screenshot coordinates */
 .pd-gallery-tile--wide {
   grid-column: span 2;
 }
@@ -221,7 +341,6 @@
   grid-row: span 2;
 }
 
-/* Rounded Overlay Floating Labels for Captions */
 .pd-gallery-caption {
   position: absolute;
   bottom: 12px;
@@ -230,45 +349,47 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(4px);
   padding: 6px 18px;
-  border-radius: 8px;
+  border-radius: 999px;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   pointer-events: none;
 }
 
 .pd-gallery-caption span {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #1a1a1a;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #151515;
 }
 
 /* ── 4. Reviews Grid ── */
 .pd-reviews-section {
-  background: #fafafa;
-  padding: 6rem 2rem;
+  background: #ffffff;
+  padding: clamp(54px, 6vw, 84px) 0;
+  border-top: 1px solid rgba(104, 3, 36, 0.08);
 }
 
 .pd-reviews-inner {
-  max-width: 1100px;
+  width: min(84vw, 1140px);
   margin: 0 auto;
 }
 
 .pd-reviews-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: clamp(32px, 4vw, 48px);
 }
 
 .pd-reviews-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
 }
 
 .pd-review-card {
-  background: #ffffff;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  background: #fdfafc;
+  padding: 2.2rem;
+  border-radius: 14px;
+  border: 1px solid rgba(104, 3, 36, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -278,44 +399,66 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #fce7f3;
-  color: #db2777;
+  background: rgba(104, 3, 36, 0.1);
+  color: var(--color-primary, #680324);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
 }
 
 .pd-review-quote {
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: #444444;
   font-style: italic;
   flex-grow: 1;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.2rem 0;
 }
 
 .pd-review-footer strong {
   display: block;
-  color: #111111;
+  color: #151515;
   font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .pd-review-footer span {
   display: block;
-  color: #888888;
-  font-size: 0.85rem;
+  color: #777777;
+  font-size: 0.82rem;
   margin-top: 0.15rem;
 }
 
-/* ── 5. Call To Action Banner ── */
+/* ── 5. Related / Other Projects Section ─────────────────────────────────── */
+.pd-related-section {
+  padding: clamp(54px, 6vw, 84px) 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.pd-related-inner {
+  width: min(84vw, 1140px);
+  margin: 0 auto;
+}
+
+.pd-related-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(28px, 3.5vw, 40px);
+}
+
+/* ── 6. Call To Action Banner ───────────────────────────────────────────── */
 .pd-cta {
   position: relative;
-  padding: 6rem 2rem;
+  padding: clamp(60px, 8vw, 100px) 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  isolation: isolate;
 }
 
 .pd-cta-image-wrap {
@@ -330,71 +473,87 @@
   object-fit: cover;
 }
 
+.pd-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 1, 10, 0.72);
+  z-index: -1;
+}
+
 .pd-cta-card {
   background: #ffffff;
-  padding: 3rem;
-  border-radius: 24px;
-  max-width: 600px;
+  padding: clamp(32px, 4vw, 48px);
+  border-radius: 18px;
+  max-width: 620px;
   text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.2);
 }
 
 .pd-cta-tag {
   display: inline-block;
-  background: #ef4444;
-  color: #ffffff;
-  font-size: 0.75rem;
+  background: rgba(104, 3, 36, 0.08);
+  color: var(--color-primary, #680324);
+  font-size: 0.76rem;
   text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 100px;
-  margin-bottom: 1.5rem;
-}
-
-.pd-cta-card h2 {
-  font-size: 2rem;
-  color: #111111;
-  line-height: 1.2;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 999px;
   margin-bottom: 1rem;
 }
 
+.pd-cta-card h2 {
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  color: #151515;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
 .pd-cta-card p {
-  color: #666666;
+  color: #555555;
+  font-size: 0.95rem;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin: 0 0 1.8rem;
 }
 
 .pd-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #111111;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-primary, #680324);
   color: #ffffff;
-  padding: 1rem 2rem;
-  border-radius: 12px;
+  padding: 12px 28px;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
 }
 
 .pd-cta-btn:hover {
-  background: #333333;
+  background: var(--color-primary-dark, #4e021b);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(104, 3, 36, 0.25);
+  color: #ffffff;
 }
 
-/* ── Media Breakpoint Intersections ── */
-@media (min-width: 768px) {
-  .pd-reviews-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 992px) {
-  .pd-writeup-inner {
-    grid-template-columns: 4fr 6fr;
-  }
-}
-
+/* ── Media Breakpoints ──────────────────────────────────────────────────── */
 @media (max-width: 991px) {
+  .pd-layout-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-sidebar {
+    position: static;
+  }
+
+  .pd-reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
   .pd-gallery-mosaic {
     grid-auto-rows: 200px;
     gap: 1rem;
@@ -402,75 +561,37 @@
 }
 
 @media (max-width: 768px) {
-  .pd-hero {
-    min-height: 390px;
-  }
   .pd-hero--inner-format {
-    min-height: auto;
     padding-bottom: 5.25rem;
   }
-  .pd-hero-content {
-    left: 18px;
-    right: 18px;
-    bottom: 96px;
-  }
-  .pd-hero-project-title {
-    font-size: clamp(2rem, 8vw, 2.65rem);
-    margin-bottom: 0.8rem;
-  }
+
   .pd-stat-bar {
     width: calc(100% - 32px);
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 0.85rem;
   }
-  .pd-stat {
-    min-height: 54px;
-  }
+
   .pd-gallery-mosaic {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   .pd-gallery-tile--wide {
     grid-column: span 2;
   }
+
   .pd-gallery-tile--tall {
     grid-row: span 1;
-  }
-  .pd-review-card,
-  .pd-cta-card {
-    width: 100%;
-    padding: var(--mobile-project-card-padding);
   }
 }
 
 @media (max-width: 480px) {
-  .pd-hero {
-    min-height: 360px;
-  }
-  .pd-hero--inner-format {
-    min-height: auto;
-    padding-bottom: 5.75rem;
-  }
-  .pd-hero-content {
-    bottom: 110px;
-  }
-  .pd-hero-project-title {
-    font-size: clamp(1.8rem, 9vw, 2.2rem);
-  }
-  .pd-hero-title-small {
-    min-height: 30px;
-    font-size: 0.78rem;
-  }
-  .pd-stat strong {
-    font-size: 1.15rem;
-  }
-  .pd-stat span {
-    font-size: 0.64rem;
-  }
   .pd-gallery-mosaic {
     display: flex;
     flex-direction: column;
   }
+
   .pd-gallery-tile {
-    height: 250px;
+    height: 240px;
   }
 }
+

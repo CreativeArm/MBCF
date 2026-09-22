@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 function HomeImageCard({
@@ -12,11 +12,12 @@ function HomeImageCard({
   className = "",
 }) {
   const classes = ["home-image-card", className].filter(Boolean).join(" ");
+  const imgSrc = image?.src || image;
 
   return (
     <article className={classes}>
       <div className="home-card-image">
-        <img src={image} alt={imageAlt} />
+        <img src={imgSrc} alt={imageAlt} />
       </div>
 
       <div className="home-card-body">
@@ -24,9 +25,9 @@ function HomeImageCard({
         <p>{description}</p>
 
         {linkLabel && to ? (
-          <Link className="home-card-link" to={to}>
-            {linkLabel}
-            {showArrow ? <ArrowRight size={24} aria-hidden="true" /> : null}
+          <Link className="home-card-link" href={to}>
+            <span>{linkLabel}</span>
+            <ArrowRight size={16} aria-hidden="true" />
           </Link>
         ) : null}
       </div>

@@ -3,25 +3,48 @@ import { Link } from "react-router-dom";
 import AboutVolunteerCta from "../components/AboutVolunteerCta";
 import HomeImageCard from "../components/HomeImageCard";
 import HomeSectionHeader from "../components/HomeSectionHeader";
-import heroSlide1 from "../assets/images/medium-shot-happy-kids-posing.jpg";
-import heroSlide2 from "../assets/images/bacground1.jpg";
-import heroSlide3 from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.jpeg";
-import heroSlide4 from "../assets/images/IMG_1824 (1).jpeg";
-import heroSlide5 from "../assets/images/IMG_0885.JPG";
-import aboutPhotoPrimary from "../assets/images/229ABC94-03AD-4A50-BBD8-528735B4C51E.jpeg";
-import aboutPhotoSecondary from "../assets/images/0C568BDD-C645-480E-9490-C1E363FF935A.jpeg";
-import projectOneImage from "../assets/images/IMG_0885.JPG";
-import projectTwoImage from "../assets/images/30F2D69C-9FC3-423F-AC31-E86D2D150EBB.jpeg";
-import projectThreeImage from "../assets/images/IMG_0900.JPG";
-import getInvolvedImage from "../assets/images/64A84E59-D649-456A-AA0B-E6E15DAADC84.jpeg";
-import blogOneImage from "../assets/images/5FF21C8D-7237-4D26-A4B8-89003CD9CD81.jpeg";
-import blogTwoImage from "../assets/images/IMG_0853.JPG";
-import blogThreeImage from "../assets/images/940D421E-AB02-4E40-92A0-54B815ECE19B.jpeg";
-import galleryOneImage from "../assets/images/medium-shot-happy-kids-posing.jpg";
-import galleryTwoImage from "../assets/images/D2F0A5A0-9C5A-4444-BE94-A34872650BDB.jpeg";
-import galleryThreeImage from "../assets/images/FE016465-3046-40ED-8342-719894510927.jpeg";
-import galleryFourImage from "../assets/images/IMG_1916 (1).jpeg";
-import { ArrowRight, Gift, HandHeart, Handshake, Play } from "lucide-react";
+import { PROJECTS } from "../data/projects";
+import heroSlide1 from "../assets/images/medium-shot-happy-kids-posing.webp";
+import heroSlide2 from "../assets/images/bacground1.webp";
+import heroSlide3 from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.webp";
+import heroSlide4 from "../assets/images/IMG_1824 (1).webp";
+import heroSlide5 from "../assets/images/IMG_0885.webp";
+import aboutPhotoPrimary from "../assets/images/229ABC94-03AD-4A50-BBD8-528735B4C51E.webp";
+import aboutPhotoSecondary from "../assets/images/0C568BDD-C645-480E-9490-C1E363FF935A.webp";
+import projectOneImage from "../assets/images/IMG_0885.webp";
+import projectTwoImage from "../assets/images/30F2D69C-9FC3-423F-AC31-E86D2D150EBB.webp";
+import projectThreeImage from "../assets/images/IMG_0900.webp";
+import projectFourImage from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.webp";
+import getInvolvedImage from "../assets/images/64A84E59-D649-456A-AA0B-E6E15DAADC84.webp";
+import blogOneImage from "../assets/images/5FF21C8D-7237-4D26-A4B8-89003CD9CD81.webp";
+import blogTwoImage from "../assets/images/IMG_0853.webp";
+import blogThreeImage from "../assets/images/940D421E-AB02-4E40-92A0-54B815ECE19B.webp";
+import blogFourImage from "../assets/images/FE016465-3046-40ED-8342-719894510927.webp";
+import galleryOneImage from "../assets/images/medium-shot-happy-kids-posing.webp";
+import galleryTwoImage from "../assets/images/D2F0A5A0-9C5A-4444-BE94-A34872650BDB.webp";
+import galleryThreeImage from "../assets/images/FE016465-3046-40ED-8342-719894510927.webp";
+import galleryFourImage from "../assets/images/IMG_1916 (1).webp";
+import galleryFiveImage from "../assets/images/0C568BDD-C645-480E-9490-C1E363FF935A.webp";
+import gallerySixImage from "../assets/images/1C519AF3-D4EE-4920-BFD9-1A5CCCA06F23.webp";
+import gallerySevenImage from "../assets/images/229ABC94-03AD-4A50-BBD8-528735B4C51E.webp";
+import galleryEightImage from "../assets/images/30F2D69C-9FC3-423F-AC31-E86D2D150EBB.webp";
+import galleryNineImage from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.webp";
+import galleryTenImage from "../assets/images/5FF21C8D-7237-4D26-A4B8-89003CD9CD81.webp";
+import galleryElevenImage from "../assets/images/64A84E59-D649-456A-AA0B-E6E15DAADC84.webp";
+import galleryTwelveImage from "../assets/images/940D421E-AB02-4E40-92A0-54B815ECE19B.webp";
+import galleryThirteenImage from "../assets/images/IMG_0853.webp";
+import galleryFourteenImage from "../assets/images/IMG_0885.webp";
+import galleryFifteenImage from "../assets/images/IMG_1824 (1).webp";
+import gallerySixteenImage from "../assets/images/IMG_7659.webp";
+import {
+  ArrowRight,
+  ChevronRight,
+  Gift,
+  HandHeart,
+  Handshake,
+  Play,
+  Sparkles,
+} from "lucide-react";
 
 const heroSlides = [
   {
@@ -50,23 +73,30 @@ const heroSupportCards = [
   {
     title: "Give",
     description:
-      "Whether it's your birthday or just a Tuesday, a gift from you means food on a table, a child back in school, or medicine someone couldn't afford on their own.",
+      "A gift from you means food on a table, a child in school, or medicine someone couldn't afford on their own.",
     to: "/donate",
     Icon: Gift,
   },
   {
     title: "Volunteer With Us",
     description:
-      "Join us on outreach or lend your skills from wherever you are, there's a team for you.",
+      "Join us on outreach or lend your skills from wherever you are. There's a dedicated place for you.",
     to: "/get-involved/volunteer",
     Icon: HandHeart,
   },
   {
     title: "Partner With Us",
     description:
-      "Bring your organization alongside ours. Together, we can reach more families through shared resources and steady support.",
+      "Bring your organization alongside ours. Together, we reach more families through steady shared support.",
     to: "/get-involved/partner",
     Icon: Handshake,
+  },
+  {
+    title: "Sponsor a Birthday",
+    description:
+      "Dedicate your birthday or milestone to bring smiles, gift packs, and nutritious meals to vulnerable children.",
+    to: "/donate",
+    Icon: Sparkles,
   },
 ];
 
@@ -101,48 +131,129 @@ const featuredProjects = [
     image: projectThreeImage,
     imageAlt: "Children and volunteers sitting together during an outreach",
   },
+  {
+    title: "Back to School Support",
+    description:
+      "Empowering young students with essential school packs, uniforms, and learning supplies.",
+    image: projectFourImage,
+    imageAlt: "Children in school uniforms supported with learning aids",
+  },
 ];
 
 const blogPosts = [
   {
     title: "Birthday Outreach in Ota",
     description:
-      "We reached families with food, gifts, and care during our birthday outreach.",
+      "We reached families with food, gifts, and care during our community birthday outreach.",
     image: blogOneImage,
     imageAlt: "Families receiving support at a birthday outreach",
   },
   {
-    title: "How Volunteers Make Giving Personal",
+    title: "Volunteers Make Giving Personal",
     description:
-      "A look at the people who help transform every outreach into a warm community moment.",
+      "A look at the compassionate people who help transform every outreach into a heartfelt moment.",
     image: blogTwoImage,
     imageAlt: "Volunteer smiling during a community service event",
   },
   {
     title: "Small Gifts, Real Community Joy",
     description:
-      "Stories from recent visits where practical support brought encouragement and smiles.",
+      "Stories from recent visits where practical support brought lasting encouragement and smiles.",
     image: blogThreeImage,
     imageAlt: "Group seated together at a community outreach programme",
   },
+  {
+    title: "A Reason to Celebrate Every Child",
+    description:
+      "How dedicating special days to children in need creates memories that last a lifetime.",
+    image: blogFourImage,
+    imageAlt: "Community celebration and outreach meal distribution",
+  },
 ];
 
-const galleryPreview = [
+const galleryRowOne = [
   {
     image: galleryOneImage,
     imageAlt: "Children smiling through a wooden window",
+    title: "Joyful Smiles",
   },
   {
     image: galleryTwoImage,
     imageAlt: "Volunteer sharing refreshments with children",
+    title: "Care & Refreshment",
   },
   {
     image: galleryThreeImage,
     imageAlt: "Community meal outreach with families gathered outdoors",
+    title: "Community Food Program",
   },
   {
     image: galleryFourImage,
     imageAlt: "Volunteers and children seated together during an event",
+    title: "Youth & Mentorship",
+  },
+  {
+    image: galleryFiveImage,
+    imageAlt: "Children smiling and celebrating during outreach",
+    title: "Heartwarming Moments",
+  },
+  {
+    image: gallerySixImage,
+    imageAlt: "Care package and essential supplies distribution",
+    title: "Essential Relief",
+  },
+  {
+    image: gallerySevenImage,
+    imageAlt: "Community members gathered together in warmth",
+    title: "Spreading Kindness",
+  },
+  {
+    image: galleryEightImage,
+    imageAlt: "Foundation team active in the community",
+    title: "Hands-on Outreach",
+  },
+];
+
+const galleryRowTwo = [
+  {
+    image: galleryNineImage,
+    imageAlt: "Education support and school materials for children",
+    title: "Back to School",
+  },
+  {
+    image: galleryTenImage,
+    imageAlt: "Birthday celebration and special moments for kids",
+    title: "Birthday Joy",
+  },
+  {
+    image: galleryElevenImage,
+    imageAlt: "Gift sharing and happiness during community visit",
+    title: "Love in Action",
+  },
+  {
+    image: galleryTwelveImage,
+    imageAlt: "Warm smiles and gratitude from local families",
+    title: "Hope for Tomorrow",
+  },
+  {
+    image: galleryThirteenImage,
+    imageAlt: "School packs, learning aids, and care boxes",
+    title: "Student Supplies",
+  },
+  {
+    image: galleryFourteenImage,
+    imageAlt: "Nutritious food packs and meal outreach",
+    title: "Food Support",
+  },
+  {
+    image: galleryFifteenImage,
+    imageAlt: "Team members and children connecting with joy",
+    title: "Compassionate Care",
+  },
+  {
+    image: gallerySixteenImage,
+    imageAlt: "Group celebration and outreach togetherness",
+    title: "Stronger Together",
   },
 ];
 
@@ -163,14 +274,16 @@ function Home() {
         <div className="hero-slider" aria-hidden="true">
           {heroSlides.map((slide, index) => (
             <div
-              key={index}
+              key={slide.alt}
               className={`hero-slide ${index === currentSlide ? "active" : ""}`}
             >
               <img src={slide.image} alt={slide.alt} />
             </div>
           ))}
         </div>
+
         <div className="hero-overlay" />
+
         <div className="hero-content">
           <p className="eyebrow">TURNING CELEBRATIONS INTO CARE</p>
           <h1 id="hero-title">
@@ -301,15 +414,15 @@ function Home() {
         />
 
         <div className="home-card-grid" aria-label="Featured projects">
-          {featuredProjects.map((project) => (
+          {PROJECTS.slice(0, 4).map((project) => (
             <HomeImageCard
-              key={project.title}
+              key={project.id}
               image={project.image}
-              imageAlt={project.imageAlt}
+              imageAlt={project.title}
               title={project.title}
               description={project.description}
               linkLabel="VIEW PROJECT"
-              to="/projects"
+              to={`/projects/${project.id}`}
               className="project-card"
             />
           ))}
@@ -386,28 +499,45 @@ function Home() {
       </section>
 
       <section
-        className="home-section home-animate"
+        className="home-gallery-section"
         aria-labelledby="home-gallery-title"
       >
-        <HomeSectionHeader
-          kicker="Gallery Preview"
-          titleId="home-gallery-title"
-          title={<>A few moments from our time in the community.</>}
-          description="Smiles from our outreach visits, hands reaching out to help, and communities coming together. A small window into the joy your support creates."
-          actionLabel="VIEW FULL GALLERY"
-          actionTo="/gallery"
-        />
+        <div className="home-gallery-header-container">
+          <HomeSectionHeader
+            kicker="Gallery Preview"
+            titleId="home-gallery-title"
+            title={<>A few moments from our time in the community.</>}
+            description="Smiles from our outreach visits, hands reaching out to help, and communities coming together. A small window into the joy your support creates."
+            actionLabel="VIEW FULL GALLERY"
+            actionTo="/gallery"
+          />
+        </div>
 
-        <div className="home-gallery-grid" aria-label="Gallery preview">
-          {galleryPreview.map((item) => (
-            <Link
-              className="home-gallery-tile"
-              to="/gallery"
-              key={item.imageAlt}
-            >
-              <img src={item.image} alt={item.imageAlt} />
-            </Link>
-          ))}
+        <div
+          className="home-gallery-marquee-wrap"
+          aria-label="Moving gallery preview"
+        >
+          {/* Row 1: Smoothly gliding left */}
+          <div className="home-gallery-track track-left">
+            <div className="home-gallery-track-inner">
+              {[...galleryRowOne, ...galleryRowOne].map((item, idx) => (
+                <div className="home-gallery-card" key={`r1-${idx}`}>
+                  <img src={item.image} alt={item.imageAlt} loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2: Smoothly gliding right */}
+          <div className="home-gallery-track track-right">
+            <div className="home-gallery-track-inner">
+              {[...galleryRowTwo, ...galleryRowTwo].map((item, idx) => (
+                <div className="home-gallery-card" key={`r2-${idx}`}>
+                  <img src={item.image} alt={item.imageAlt} loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Handshake, HeartHandshake } from "lucide-react";
+import Link from "next/link";
+import { HeartHandshake } from "lucide-react";
 
 function InnerPageHero({
   eyebrow = "Help make a difference",
@@ -15,6 +15,8 @@ function InnerPageHero({
   secondaryTo = "/get-involved/volunteer",
   SecondaryIcon = HeartHandshake,
 }) {
+  const imgSrc = image?.src || image;
+
   return (
     <section className="inner-page-hero" aria-labelledby={titleId}>
       <div className="inner-page-hero-copy">
@@ -24,12 +26,12 @@ function InnerPageHero({
         {showActions ? (
           <div className="inner-page-hero-actions">
             {primaryLabel && primaryTo ? (
-              <Link className="inner-page-hero-primary" to={primaryTo}>
+              <Link className="inner-page-hero-primary" href={primaryTo}>
                 {primaryLabel}
               </Link>
             ) : null}
             {secondaryLabel && secondaryTo ? (
-              <Link className="inner-page-hero-secondary" to={secondaryTo}>
+              <Link className="inner-page-hero-secondary" href={secondaryTo}>
                 {SecondaryIcon ? <SecondaryIcon size={17} aria-hidden="true" /> : null}
                 {secondaryLabel}
               </Link>
@@ -39,7 +41,7 @@ function InnerPageHero({
       </div>
 
       <div className="inner-page-hero-media">
-        <img src={image} alt={imageAlt} />
+        <img src={imgSrc} alt={imageAlt} />
       </div>
     </section>
   );

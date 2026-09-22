@@ -1,9 +1,9 @@
-import heroImage from "../assets/images/medium-shot-happy-kids-posing.jpg";
-import outreachImage from "../assets/images/IMG_1824 (1).jpeg";
-import volunteerImage from "../assets/images/IMG_1916 (1).jpeg";
-import schoolImage from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.jpeg";
-import careImage from "../assets/images/IMG_0885.JPG";
-import celebrationImage from "../assets/images/IMG_7659.JPG";
+import heroImage from "../assets/images/medium-shot-happy-kids-posing.webp";
+import outreachImage from "../assets/images/IMG_1824 (1).webp";
+import volunteerImage from "../assets/images/IMG_1916 (1).webp";
+import schoolImage from "../assets/images/4963B524-3BEA-44AF-9E5A-BCEB70845E97.webp";
+import careImage from "../assets/images/IMG_0885.webp";
+import celebrationImage from "../assets/images/IMG_7659.webp";
 
 export const blogPosts = [
   {

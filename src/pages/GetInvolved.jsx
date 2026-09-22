@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Gift, HandHeart, Handshake, HeartHandshake } from "lucide-react";
 import AboutVolunteerCta from "../components/AboutVolunteerCta";
@@ -5,8 +6,8 @@ import InnerPageHero from "../components/InnerPageHero";
 import "../projects.css";
 import "../get-involved.css";
 import { involvementOptions, involvementSteps } from "../data/involvement";
-import heroImage from "../assets/images/bacground1.jpg";
-import processImage from "../assets/images/IMG_1916 (1).jpeg";
+import heroImage from "../assets/images/bacground1.webp";
+import processImage from "../assets/images/IMG_1916 (1).webp";
 
 const optionIcons = {
   volunteer: HandHeart,
@@ -15,8 +16,40 @@ const optionIcons = {
 };
 
 function GetInvolved() {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // Enable smooth scrolling
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "smooth";
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.12,
+    };
+
+    const handleIntersect = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+    const revealElements = containerRef.current?.querySelectorAll(".involve-reveal") || [];
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
+    };
+  }, []);
+
   return (
-    <div className="involve-page">
+    <div className="involve-page" ref={containerRef}>
       <InnerPageHero
         eyebrow="Get Involved"
         title={<>Be Part of the <span>change</span></>}
@@ -27,18 +60,23 @@ function GetInvolved() {
       />
 
       <section className="involve-section involve-intro" aria-labelledby="involve-intro-title">
-        <h2 id="involve-intro-title">
+        <h2 id="involve-intro-title" className="involve-reveal">
           There are many ways to support our mission. Whether through giving,
           volunteering, or partnering with us, your involvement makes a
           difference
         </h2>
 
-        <div className="involve-option-grid">
-          {involvementOptions.map((option) => {
+        <div className="involve-option-grid" role="list">
+          {involvementOptions.map((option, index) => {
             const Icon = optionIcons[option.id] || HeartHandshake;
 
             return (
-              <article className="involve-option-card" key={option.id}>
+              <article
+                className="involve-option-card involve-reveal"
+                key={option.id}
+                role="listitem"
+                style={{ transitionDelay: `${index * 140}ms` }}
+              >
                 <span className="involve-option-icon">
                   <Icon size={30} aria-hidden="true" />
                 </span>
@@ -54,7 +92,7 @@ function GetInvolved() {
       </section>
 
       <section className="involve-section involve-steps" aria-labelledby="involve-steps-title">
-        <div className="involve-section-heading">
+        <div className="involve-section-heading involve-reveal">
           <p className="home-kicker">How it works</p>
           <h2 id="involve-steps-title">
             Getting involved is simple and takes only a few steps.
@@ -62,16 +100,22 @@ function GetInvolved() {
         </div>
 
         <div className="involve-steps-layout">
-          <div className="involve-process-image">
+          <div className="involve-process-image involve-reveal">
             <img
               src={processImage}
               alt="Volunteers and community members during an outreach"
+              loading="lazy"
             />
           </div>
 
-          <div className="involve-step-list">
+          <div className="involve-step-list" role="list">
             {involvementSteps.map((step, index) => (
-              <article className="involve-step-card" key={step.title}>
+              <article
+                className="involve-step-card involve-reveal"
+                key={step.title}
+                role="listitem"
+                style={{ transitionDelay: `${index * 120}ms` }}
+              >
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h3>{step.title}</h3>
@@ -83,7 +127,9 @@ function GetInvolved() {
         </div>
       </section>
 
-      <AboutVolunteerCta />
+      <div className="involve-reveal">
+        <AboutVolunteerCta />
+      </div>
     </div>
   );
 }

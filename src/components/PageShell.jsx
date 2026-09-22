@@ -1,5 +1,5 @@
 import InnerPageHero from "./InnerPageHero";
-import heroImage from "../assets/images/bacground1.jpg";
+import heroImage from "../assets/images/bacground1.webp";
 
 function PageShell({ kicker, title, intro, highlights = [], children }) {
   return (

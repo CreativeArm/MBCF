@@ -1,11 +1,23 @@
-import "../project-detail.css";
-import bgImg from "../assets/images/bacground1.jpg";
-import projectHeroImg from "../assets/images/IMG_0900.JPG";
+import { useMemo, useEffect } from "react";
+import { Navigate, useParams, Link } from "react-router-dom";
+import {
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+  Heart,
+  Handshake,
+  MapPin,
+  Users,
+  Calendar,
+  Sparkles,
+  Share2,
+} from "lucide-react";
 import InnerPageHero from "../components/InnerPageHero";
-import { Navigate, useParams } from "react-router-dom";
 import { PROJECTS } from "../data/projects";
+import "../project-detail.css";
+import fallbackHero from "../assets/images/bacground1.webp";
 
-// â”€â”€ Impact stat pill â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Impact stat pill ─────────────────────────────────────────────────────────
 function StatPill({ number, label }) {
   return (
     <div className="pd-stat">
@@ -15,22 +27,17 @@ function StatPill({ number, label }) {
   );
 }
 
-// â”€â”€ Gallery image tile with Caption Support â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-function GalleryTile({ src, alt, caption, variant }) {
+// ── Gallery tile ─────────────────────────────────────────────────────────────
+function GalleryTile({ src, alt, variant }) {
   const variantClass = variant ? `pd-gallery-tile--${variant}` : "";
   return (
     <div className={`pd-gallery-tile ${variantClass}`}>
-      <img src={src} alt={alt} />
-      {caption && (
-        <div className="pd-gallery-caption">
-          <span>{caption}</span>
-        </div>
-      )}
+      <img src={src} alt={alt || "Project moment"} loading="lazy" />
     </div>
   );
 }
 
-// â”€â”€ Review card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Review card ──────────────────────────────────────────────────────────────
 function ReviewCard({ name, role, quote, initial }) {
   return (
     <blockquote className="pd-review-card">
@@ -44,209 +51,257 @@ function ReviewCard({ name, role, quote, initial }) {
   );
 }
 
-const STATS = [
-  { number: "240+", label: "Children reached" },
-  { number: "18", label: "Communities visited" },
-  { number: "3yrs", label: "Running strong" },
-  { number: "100%", label: "Volunteer-powered" },
-];
-
-const REVIEWS = [
-  {
-    initial: "A",
-    name: "Adaeze Okafor",
-    role: "Parent, Lagos",
-    quote:
-      "My daughter had never had a birthday party. Watching her face light up that day â€” I will never forget it. These people truly care.",
-  },
-  {
-    initial: "E",
-    name: "Emmanuel Tunde",
-    role: "Community leader, Ibadan",
-    quote:
-      "They didn't just bring cake. They brought dignity. Every child deserves to feel seen, and this programme makes that happen.",
-  },
-  {
-    initial: "F",
-    name: "Fatima Aliyu",
-    role: "Volunteer coordinator",
-    quote:
-      "I've volunteered for many organisations. None have the heart this team has. The joy in those classrooms stays with you for life.",
-  },
-];
-
-// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function ProjectDetail() {
   const { id } = useParams();
   const project = PROJECTS.find((item) => item.id === id);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id]);
+
+  const relatedProjects = useMemo(() => {
+    return PROJECTS.filter((item) => item.id !== id).slice(0, 3);
+  }, [id]);
 
   if (!project) {
     return <Navigate to="/projects" replace />;
   }
 
-  const projectTitle = project.title;
-  const projectKicker = "Birthday Outreach";
+  const defaultStats = [
+    { number: "250+", label: "People Reached" },
+    { number: "10+", label: "Outreaches" },
+    { number: "100%", label: "Volunteer-Led" },
+    { number: "Ongoing", label: "Program Status" },
+  ];
+
+  const stats = project.stats && project.stats.length > 0 ? project.stats : defaultStats;
 
   return (
     <div className="pd-page">
-      {/* â”€â”€ 1. Full-bleed hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── 1. Hero Banner ──────────────────────────────────────────────── */}
       <div className="pd-hero pd-hero--inner-format">
         <InnerPageHero
-          eyebrow={projectKicker}
-          title={projectTitle}
+          eyebrow={project.category || "Birthday Outreach"}
+          title={project.title}
           titleId="project-detail-title"
           description={project.description}
-          image={projectHeroImg}
-          imageAlt={`${projectTitle} outreach`}
-          primaryLabel="Donate Now"
+          image={project.image || fallbackHero}
+          imageAlt={`${project.title} outreach`}
+          primaryLabel="Support This Project"
           primaryTo="/donate"
-          secondaryLabel="Partner with us"
+          secondaryLabel="Partner With Us"
           secondaryTo="/get-involved/partner"
         />
 
         {/* Floating stat bar sitting at the section seam */}
-        <div className="pd-stat-bar">
-          {STATS.map((s) => (
+        <div className="pd-stat-bar" role="region" aria-label="Project key metrics">
+          {stats.map((s) => (
             <StatPill key={s.label} {...s} />
           ))}
         </div>
       </div>
 
-      {/* â”€â”€ 2. Project write-up â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="pd-writeup home-section">
-        <div className="pd-writeup-inner">
-          <div className="pd-writeup-lead">
-            <p className="about-kicker">About this project</p>
-            <h2 className="pd-writeup-heading">{project.title}</h2>
+      {/* ── Back to Projects Navigation Link ────────────────────────────── */}
+      <div className="pd-nav-bar">
+        <div className="pd-nav-inner">
+          <Link to="/projects" className="pd-back-link">
+            <ArrowLeft size={16} />
+            <span>Back to All Projects</span>
+          </Link>
+          <div className="pd-nav-tags">
+            {project.tags?.map((tag) => (
+              <span key={tag} className="pd-tag-pill">
+                #{tag}
+              </span>
+            ))}
           </div>
-          <div className="pd-writeup-body">
-            <p>{project.description}</p>
-            <p>
-              This project began with a simple
-              belief: no one should feel forgotten on a day meant for joy. Our
-              volunteers work with local communities and partners to create
-              thoughtful celebrations that respond to real needs with care,
-              dignity, and consistency.
-            </p>
-            <p>
-              Each outreach is planned around the people we are serving. We
-              provide practical support, shared moments of celebration, and a
-              reminder that every person deserves to be seen, valued, and loved.
-            </p>
-            <p>
-              As the programme grows, we continue to keep the work
-              community-driven, volunteer-powered, and transparent so every gift
-              can be traced back to meaningful impact.
-            </p>
-            <div className="pd-writeup-tags">
-              <span>Lagos</span>
-              <span>Ogun State</span>
-              <span>Oyo State</span>
-              <span>Children 0 â€“ 17</span>
-              <span>Monthly visits</span>
+        </div>
+      </div>
+
+      {/* ── 2. Project Narrative & Sidebar Overview ─────────────────────── */}
+      <section className="pd-writeup home-section" aria-labelledby="about-proj-heading">
+        <div className="pd-writeup-inner pd-layout-2col">
+          {/* Main narrative column */}
+          <div className="pd-main-content">
+            <div className="pd-writeup-lead">
+              <p className="about-kicker">Program Overview</p>
+              <h2 id="about-proj-heading" className="pd-writeup-heading">
+                {project.title}
+              </h2>
+            </div>
+
+            <div className="pd-writeup-body">
+              <p className="pd-lead-para">{project.overview || project.description}</p>
+
+              {project.mission && (
+                <div className="pd-mission-callout">
+                  <strong>Our Mission in This Initiative:</strong>
+                  <p>{project.mission}</p>
+                </div>
+              )}
+
+              {project.highlights && project.highlights.length > 0 && (
+                <div className="pd-highlights-block">
+                  <h3 className="pd-subheading">Key Program Activities & Impact</h3>
+                  <ul className="pd-highlights-list">
+                    {project.highlights.map((item, idx) => (
+                      <li key={idx}>
+                        <CheckCircle2 size={18} className="pd-check-icon" aria-hidden="true" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Quick info sidebar card */}
+          <aside className="pd-sidebar" aria-label="Project summary details">
+            <div className="pd-sidebar-card">
+              <h3 className="pd-sidebar-title">Project Details</h3>
+              <div className="pd-sidebar-details">
+                {project.location && (
+                  <div className="pd-sidebar-item">
+                    <MapPin size={18} className="pd-sidebar-icon" />
+                    <div>
+                      <strong>Location</strong>
+                      <span>{project.location}</span>
+                    </div>
+                  </div>
+                )}
+                {project.targetGroup && (
+                  <div className="pd-sidebar-item">
+                    <Users size={18} className="pd-sidebar-icon" />
+                    <div>
+                      <strong>Beneficiaries</strong>
+                      <span>{project.targetGroup}</span>
+                    </div>
+                  </div>
+                )}
+                {project.status && (
+                  <div className="pd-sidebar-item">
+                    <Calendar size={18} className="pd-sidebar-icon" />
+                    <div>
+                      <strong>Program Status</strong>
+                      <span>{project.status}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="pd-sidebar-cta">
+                <Link to="/donate" className="button primary pd-btn-full">
+                  <Heart size={16} />
+                  <span>Donate to This Cause</span>
+                </Link>
+                <Link to="/get-involved/volunteer" className="button secondary pd-btn-full">
+                  <span>Volunteer With Us</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      {/* â”€â”€ 3. Image gallery â€” Perfect 3-Column Screenshot Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="pd-gallery-section">
-        <div className="pd-gallery-header">
-          <p className="about-kicker">Photo journal</p>
-          <h2 className="home-section-title">Moments that matter</h2>
-        </div>
-        <div className="pd-gallery-mosaic">
-          {/* Row 1 & Row 2 elements */}
-          <GalleryTile
-            src={bgImg}
-            alt="Kids' Joy"
-            caption="Kids' Joy"
-            variant="tall"
-          />
-          <GalleryTile
-            src={bgImg}
-            alt="Lagos Outreach"
-            caption="Lagos Outreach"
-            variant="wide"
-          />
-          <GalleryTile
-            src={bgImg}
-            alt="Kids playing group games"
-            caption="Kids playing group games"
-          />
-
-          {/* Remaining staggered spaces in Row 2 */}
-          <GalleryTile
-            src={bgImg}
-            alt="Happy fac celebration"
-            caption="Happy fac celebration"
-          />
-          <GalleryTile
-            src={bgImg}
-            alt="Personalized birthday gifts"
-            caption="Personalized birthday gifts"
-          />
-
-          {/* Row 3 & Row 4 elements */}
-          <GalleryTile src={bgImg} alt="Kids' Joy 2" caption="Kids' Joy" />
-          <GalleryTile src={bgImg} alt="Kids looking" caption="Kids looking" />
-          <GalleryTile
-            src={bgImg}
-            alt="Lagos Outreach 2"
-            caption="Lagos Outreach"
-            variant="tall"
-          />
-          <GalleryTile src={bgImg} alt="Kids jumping" caption="Kids jumping" />
-
-          {/* Row 4 termination and wrapping alignment */}
-          <GalleryTile src={bgImg} alt="Birthday Cake Close-up" />
-          <GalleryTile
-            src={bgImg}
-            alt="Orphanage Visit Group Photo"
-            caption="Orphanage Visit"
-            variant="wide"
-          />
-        </div>
-      </section>
-
-      {/* â”€â”€ 4. Reviews â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="pd-reviews-section home-section">
-        <div className="pd-reviews-inner">
-          <div className="pd-reviews-header">
-            <p className="about-kicker">What people say</p>
-            <h2 className="home-section-title">Words from the community</h2>
+      {/* ── 3. Photo Journal / Gallery Mosaic ──────────────────────────── */}
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="pd-gallery-section" aria-labelledby="pd-gallery-heading">
+          <div className="pd-gallery-header">
+            <p className="about-kicker">Photo Journal</p>
+            <h2 id="pd-gallery-heading" className="home-section-title">
+              Moments That Matter
+            </h2>
+            <p className="pd-gallery-subtitle">
+              Glimpses of heartfelt smiles, shared meals, and joyful birthday moments.
+            </p>
           </div>
-          <div className="pd-reviews-grid">
-            {REVIEWS.map((r) => (
-              <ReviewCard key={r.name} {...r} />
+          <div className="pd-gallery-mosaic">
+            {project.gallery.map((tile, idx) => (
+              <GalleryTile
+                key={idx}
+                src={tile.src}
+                alt={tile.alt}
+                caption={tile.caption}
+                variant={tile.variant}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── 4. Reviews & Community Voices ──────────────────────────────── */}
+      {project.testimonials && project.testimonials.length > 0 && (
+        <section className="pd-reviews-section home-section" aria-labelledby="pd-reviews-heading">
+          <div className="pd-reviews-inner">
+            <div className="pd-reviews-header">
+              <p className="about-kicker">Community Voices</p>
+              <h2 id="pd-reviews-heading" className="home-section-title">
+                Words from Beneficiaries & Volunteers
+              </h2>
+            </div>
+            <div className="pd-reviews-grid">
+              {project.testimonials.map((r, idx) => (
+                <ReviewCard key={idx} {...r} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── 5. Explore Other Projects ─────────────────────────────────── */}
+      <section className="pd-related-section home-section" aria-labelledby="pd-related-heading">
+        <div className="pd-related-inner">
+          <div className="pd-related-header">
+            <div>
+              <p className="about-kicker">Explore More</p>
+              <h2 id="pd-related-heading" className="home-section-title">
+                Other Birthday Outreach Projects
+              </h2>
+            </div>
+            <Link to="/projects" className="button secondary">
+              <span>View All Projects</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="home-card-grid">
+            {relatedProjects.map((rel) => (
+              <article className="home-image-card project-card" key={rel.id}>
+                <div className="home-card-image">
+                  <img src={rel.image || fallbackHero} alt={rel.title} loading="lazy" />
+                  {rel.category && <span className="proj-card-category">{rel.category}</span>}
+                </div>
+                <div className="home-card-body">
+                  <h3>{rel.title}</h3>
+                  <p>{rel.description}</p>
+                  <Link to={`/projects/${rel.id}`} className="home-card-link proj-card-btn">
+                    <span>View Project</span>
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* â”€â”€ 5. CTA â€” volunteer panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── 6. Unified CTA Banner ──────────────────────────────────────── */}
       <section className="pd-cta">
         <div className="pd-cta-image-wrap">
-          <img src={bgImg} alt="" aria-hidden="true" />
+          <img src={fallbackHero} alt="" aria-hidden="true" />
         </div>
         <div className="pd-cta-card">
-          <span className="pd-cta-tag">Volunteer</span>
-          <h2>
-            Be a Volunteer for
-            <br />
-            Brighter Futures
-          </h2>
+          <span className="pd-cta-tag">Get Involved</span>
+          <h2>Make Your Next Birthday Count</h2>
           <p>
-            To inspire individuals to celebrate birthdays by giving back to the
-            community, fostering compassion and generosity through impactful
-            outreach.
+            Whether you want to sponsor an outreach, volunteer your time, or partner with us, your celebration can light up lives in our community.
           </p>
-          <a href="/get-involved" className="pd-cta-btn">
-            Join as a Volunteer
-            <span className="pd-cta-arrow" aria-hidden="true">
-              â†’
-            </span>
-          </a>
+          <Link to="/get-involved" className="pd-cta-btn">
+            <span>Get Involved Today</span>
+            <span className="pd-cta-arrow" aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
     </div>
