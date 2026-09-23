@@ -39,16 +39,13 @@ jobs:
           CLEAN=$(echo "$RAW" | sed -e 's|^[a-zA-Z]*://||' -e 's|/.*$||' | tr -d '[:space:]')
           echo "CLEAN_SERVER=$CLEAN" >> "$GITHUB_ENV"
 
-      - name: 🚀 Deploy via FTP to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ env.CLEAN_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          security: loose
-          port: 21
-          timeout: 60000
-          local-dir: ./out/
-          server-dir: public_html/
-          log-level: verbose
+      - name: 🚀 Deploy via LFTP to Hostinger
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          lftp -c "
+            set ftp:ssl-allow true;
+            set ssl:verify-certificate no;
+            set ftp:passive-mode true;
+            open -u '${{ secrets.FTP_USERNAME }}','${{ secrets.FTP_PASSWORD }}' '${{ env.CLEAN_SERVER }}';
+            mirror --reverse --delete --verbose --parallel=5 ./out/ ./public_html/
+          "
