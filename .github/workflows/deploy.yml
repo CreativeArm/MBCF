@@ -32,42 +32,9 @@ jobs:
             cp public/.htaccess out/.htaccess
           fi
 
-      - name: 🧹 Clean FTP Server Hostname
-        id: parse_server
-        run: |
-          RAW="${{ secrets.FTP_SERVER }}"
-          CLEAN=$(echo "$RAW" | sed -e 's|^[a-zA-Z]*://||' -e 's|/.*$||' | tr -d '[:space:]')
-          echo "CLEAN_SERVER=$CLEAN" >> "$GITHUB_ENV"
-
-      - name: 🚀 Deploy via LFTP to Hostinger
+      - name: 🚀 Deploy via Python FTP to Hostinger
         env:
           FTP_USER: ${{ secrets.FTP_USERNAME }}
           FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-          FTP_HOST: ${{ env.CLEAN_SERVER }}
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          
-          echo "Checking directory and uploading files..."
-          lftp -e "
-            set ftp:ssl-allow true;
-            set ssl:verify-certificate no;
-            set ftp:passive-mode true;
-            set net:timeout 30;
-            set net:max-retries 3;
-            set cmd:fail-exit true;
-            user \"$FTP_USER\" \"$FTP_PASS\";
-            pwd;
-            ls;
-            mirror --reverse --delete --verbose ./out/ ./public_html/;
-            bye;
-          " "$FTP_HOST" || lftp -e "
-            set ftp:ssl-allow true;
-            set ssl:verify-certificate no;
-            set ftp:passive-mode true;
-            set net:timeout 30;
-            set net:max-retries 3;
-            set cmd:fail-exit true;
-            user \"$FTP_USER\" \"$FTP_PASS\";
-            mirror --reverse --delete --verbose ./out/ ./;
-            bye;
-          " "$FTP_HOST"
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+        run: python3 scripts/deploy_ftp.py
