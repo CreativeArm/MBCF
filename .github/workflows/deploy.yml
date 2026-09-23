@@ -17,7 +17,7 @@ jobs:
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: 📦 Install dependencies
@@ -32,10 +32,17 @@ jobs:
             cp public/.htaccess out/.htaccess
           fi
 
+      - name: 🧹 Clean FTP Server Hostname
+        id: parse_server
+        run: |
+          RAW="${{ secrets.FTP_SERVER }}"
+          CLEAN=$(echo "$RAW" | sed -e 's|^[a-zA-Z]*://||' -e 's|/.*$||' | tr -d '[:space:]')
+          echo "CLEAN_SERVER=$CLEAN" >> "$GITHUB_ENV"
+
       - name: 🚀 Deploy via FTP to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ env.CLEAN_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
