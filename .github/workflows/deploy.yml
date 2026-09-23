@@ -40,12 +40,34 @@ jobs:
           echo "CLEAN_SERVER=$CLEAN" >> "$GITHUB_ENV"
 
       - name: 🚀 Deploy via LFTP to Hostinger
+        env:
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOST: ${{ env.CLEAN_SERVER }}
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-          lftp -c "
+          
+          echo "Checking directory and uploading files..."
+          lftp -e "
             set ftp:ssl-allow true;
             set ssl:verify-certificate no;
             set ftp:passive-mode true;
-            open -u '${{ secrets.FTP_USERNAME }}','${{ secrets.FTP_PASSWORD }}' '${{ env.CLEAN_SERVER }}';
-            mirror --reverse --delete --verbose --parallel=5 ./out/ ./public_html/
-          "
+            set net:timeout 30;
+            set net:max-retries 3;
+            set cmd:fail-exit true;
+            user \"$FTP_USER\" \"$FTP_PASS\";
+            pwd;
+            ls;
+            mirror --reverse --delete --verbose ./out/ ./public_html/;
+            bye;
+          " "$FTP_HOST" || lftp -e "
+            set ftp:ssl-allow true;
+            set ssl:verify-certificate no;
+            set ftp:passive-mode true;
+            set net:timeout 30;
+            set net:max-retries 3;
+            set cmd:fail-exit true;
+            user \"$FTP_USER\" \"$FTP_PASS\";
+            mirror --reverse --delete --verbose ./out/ ./;
+            bye;
+          " "$FTP_HOST"
